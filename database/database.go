@@ -49,7 +49,7 @@ type (
 		PhoneNumber uint   `gorm:"unique,not null,type:varchar(100)"`
 		Email       string `gorm:"unique,not null,type:varchar(255)"`
 		Password    string `gorm:"not null,type:varchar(500)"`
-		Articles    []Article
+		Articles    []Article `gorm:"foreignKey:Author"`
 		Sessions    []Session
 	}
 
@@ -59,7 +59,7 @@ type (
 		AccessToken  string `gorm:"not null,type:varchar(100)"`
 		IP           string `gorm:"not null,type:varchar(60)"`
 		UserID       uint   `gorm:"not null"`
-		User         User   `gorm:"foreignKey:UserID"`
+		User         User   `gorm:"foreignKey:UserID;references:ID"`
 	}
 
 	Article struct {
@@ -67,7 +67,7 @@ type (
 		Title  string `gorm:"not null,type:varchar(100)"`
 		Body   string `gorm:"not null"`
 		Author uint   `gorm:"not null"`
-		User   User   `gorm:"foreignKey:UserID"`
+		User   User   `gorm:"foreignKey:Author;references:ID"`
 	}
 )
 
