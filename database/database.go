@@ -45,10 +45,10 @@ func Init() {
 type (
 	User struct {
 		gorm.Model
-		Username    string `gorm:"unique,not null,type:varchar(100)"`
-		PhoneNumber uint   `gorm:"unique,not null,type:varchar(100)"`
-		Email       string `gorm:"unique,not null,type:varchar(255)"`
-		Password    string `gorm:"not null,type:varchar(500)"`
+		Username    string    `gorm:"unique,not null,type:varchar(100)"`
+		PhoneNumber uint      `gorm:"unique,not null,type:varchar(100)"`
+		Email       string    `gorm:"unique,not null,type:varchar(255)"`
+		Password    string    `gorm:"not null,type:varchar(500)"`
 		Articles    []Article `gorm:"foreignKey:Author"`
 		Sessions    []Session
 	}
@@ -60,6 +60,7 @@ type (
 		IP           string `gorm:"not null,type:varchar(60)"`
 		UserID       uint   `gorm:"not null"`
 		User         User   `gorm:"foreignKey:UserID;references:ID"`
+		Valid        bool   `gorm:"not null,default:true"`
 	}
 
 	Article struct {
