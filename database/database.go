@@ -70,6 +70,12 @@ type (
 		Author uint   `gorm:"not null"`
 		User   User   `gorm:"foreignKey:Author;references:ID"`
 	}
+
+	Package struct {
+		gorm.Model
+		Type          string `gorm:"not null,type:varchar(50)"`
+		Specefication string `gorm:"not null"`
+	}
 )
 
 func (u *User) ValidatePassword(password string) bool {
