@@ -1,7 +1,6 @@
 package main
 
 import (
-	"embed"
 	"net/http"
 
 	"github.com/gofiber/fiber/v2"
@@ -11,18 +10,14 @@ import (
 	"github.com/test_api_mm/database"
 )
 
-var embedDirStatic embed.FS
-
 func main() {
 	database.Init()
 	app := fiber.New()
 	if !fiber.IsChild() {
 		database.Migrate()
 	}
-	app.Use("/krashosting", filesystem.New(filesystem.Config{
-		Root: http.FS(
-			embedDirStatic,
-		),
+	app.Use("/", filesystem.New(filesystem.Config{
+		Root:   http.Dir("./frontend"),
 		Browse: true,
 	}))
 
