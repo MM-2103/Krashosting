@@ -10,12 +10,12 @@ var (
 	DB *gorm.DB
 )
 
-func RetrieveAllArticles_Handler(c *fiber.Ctx) error {
-	var articles []database.Article
-	if err := DB.Find(&articles).Error; err != nil {
+func RetrieveAllPackages_Handler(c *fiber.Ctx) error {
+	var packages []database.Package
+	if err := DB.Find(&packages).Error; err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"error": "Failed to retrieve articles",
 		})
 	}
-	return c.JSON(articles)
+	return c.JSON(packages)
 }

@@ -13,7 +13,7 @@ type UpdatePackage struct {
 }
 
 func UpdatePackage_Handler(c *fiber.Ctx) error {
-	articleID := c.Params("id")
+	packageID := c.Params("id")
 
 	var updatedPackage UpdatePackage
 	if err := c.BodyParser(&updatedPackage); err != nil {
@@ -24,13 +24,13 @@ func UpdatePackage_Handler(c *fiber.Ctx) error {
 	}
 
 	var existingPackage database.Package
-	if err := DB.First(&existingPackage, articleID).Error; err != nil {
+	if err := DB.First(&existingPackage, packageID).Error; err != nil {
 		if gorm.ErrRecordNotFound == err {
 			return fiber.ErrInternalServerError
 		}
 	}
-	existingPackage.Title = updatedPackage.Title
-	existingPackage.Body = updatedPackage.Body
+	existingPackage.Type = updatedPackage.Type
+	existingPackage.Specefication = updatedPackage.Specefication
 	if err := DB.Model(&existingPackage).Updates(existingPackage).Error; err != nil {
 		return fiber.ErrInternalServerError
 	}
