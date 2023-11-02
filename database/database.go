@@ -51,6 +51,7 @@ type (
 		Password    string    `gorm:"not null,type:varchar(500)"`
 		Articles    []Article `gorm:"foreignKey:Author"`
 		Sessions    []Session
+		Orders      []Orders
 	}
 
 	Session struct {
@@ -75,6 +76,12 @@ type (
 		gorm.Model
 		Type          string `gorm:"not null,type:varchar(50)"`
 		Specefication string `gorm:"not null"`
+	}
+	Orders struct {
+		gorm.Model
+		OrderID uint `gorm:"not null"`
+		UserID  uint `gorm:"not null"`
+		User    User `gorm:"foreignKey:UserID;references:ID"`
 	}
 )
 
