@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/gofiber/fiber/v2"
@@ -21,9 +22,17 @@ func main() {
 		Browse: true,
 	}))
 
+	app.Use("/admin", filesystem.New(filesystem.Config{
+		Root:   http.Dir("./admin"),
+		Browse: true,
+	}))
+
 	// Default route to show when accessing the root
 	auth.Instance(app)
 	articles.Instance(app)
 
-	app.Listen(":3000")
+	log.Println("Starting server on :3000")
+	if err := app.Listen(":3000"); err != nil {
+		log.Fatalf("Error starting server: %v", err)
+	}
 }

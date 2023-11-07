@@ -9,5 +9,6 @@ func Instance(app *fiber.App) {
 	auth := app.Group("/auth")
 	{
 		auth.Post("/login", auth_handlers.Login_Handler)
+		auth.Post("/register", auth_handlers.Register_Handler)
 	}
 }

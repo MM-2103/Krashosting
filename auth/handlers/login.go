@@ -8,8 +8,8 @@ import (
 )
 
 type LoginBody struct {
-	Username string `json:"username" validate:"required,max=255"`
-	Password string `json:"password" validate:"required,min=8,max=32"`
+	Username string `form:"username" validate:"required,max=255"`
+	Password string `form:"password" validate:"required,min=8,max=32"`
 }
 
 func Login_Handler(c *fiber.Ctx) error {
@@ -45,8 +45,10 @@ func Login_Handler(c *fiber.Ctx) error {
 		Value:    session_token,
 		HTTPOnly: true,
 	})
-	return c.Status(fiber.StatusCreated).JSON(&fiber.Map{
-		"access_token": access_token,
-	})
+	// return c.Status(fiber.StatusCreated).JSON(&fiber.Map{
+	// 	"access_token": access_token,
+	// })
+	// Inside your signup handler, after the user is created successfully:
+	return c.Redirect("/index.html") // Replace with the actual path to your homepage
 
 }
